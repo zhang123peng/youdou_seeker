@@ -1,0 +1,35 @@
+// login
+export const UPDATE_LOGIN_STATE = 'UPDATE_LOGIN_STATE';
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const CLEAR_USER_INFO = 'CLEAR_USER_INFO';
+export const UPDATA_RESUME_INFO = 'UPDATA_RESUME_INFO';
+
+
+//transition
+export const SET_ROUTE_TRANSITION_NAME = 'SET_ROUTE_TRANSITION_NAME';
+export const ADD_ROUTE_CHAIN = 'ADD_ROUTE_CHAIN';
+export const POP_ROUTE_CHAIN = 'POP_ROUTE_CHAIN';
+
+//form
+export const INIT_FORM_LABEL = 'INIT_FORM_LABEL';
+export const INIT_FORM_VALUE = 'INIT_FORM_VALUE';
+export const INIT_FORM_VM = 'INIT_FORM_VM';
+export const INIT_FORM_DATA = 'INIT_FORM_DATA';
+export const INIT_FORM_NAME = 'INIT_FORM_NAME';
+export const INIT_FORM_OPTION = 'INIT_FORM_OPTION';
+export const SET_FORM_CITY = 'SET_FORM_CITY';
+export const UPDATE_CURRENT_CITY = 'UPDATE_CURRENT_CITY'
+
+//option
+export const SET_INDUSTRY_OPTION = 'SET_INDUSTRY_OPTION';
+export const SET_CITY_OPTION = 'SET_CITY_OPTION';
+
+//home
+export const SET_JOB_LIST = 'SET_JOB_LIST'
+
+//me
+export const SET_GLOBAL_USER_INFO = 'SET_GLOBAL_USER_INFO'
+
+//message
+export const SET_MESSAGE_INTERVIEW_INFO = 'SET_MESSAGE_INTERVIEW_INFO'
+export const SET_MESSAGE_JOB_INFO = 'SET_MESSAGE_JOB_INFO'
