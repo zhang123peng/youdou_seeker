@@ -111,7 +111,7 @@
             </div>
           </div>
           <div class="tags">
-            <span class="tag-item" v-for="(tag,index) in item.job_welfare" :key="index">{{tag}}</span>
+            <span class="tag-item" v-for="(tag,index) in item.job_welfare.slice(0,4)" :key="index">{{tag}}</span>
           </div>
         </router-link>
       </ul>
@@ -528,6 +528,7 @@ export default {
     left 0
     top 0
     overflow-y auto
+    -webkit-overflow-scrolling: touch
     padding 1rem 0.15rem 0.6rem
     height 100%
     width 100%
@@ -545,8 +546,9 @@ export default {
           top 0.1rem
           width 0.6rem
           height 0.6rem
-          background-size cover
-          background-color #ccc
+          background-size contain
+          background-repeat no-repeat
+          background-color #fff
           background-position center
         .job-info
           padding 0 0.7rem

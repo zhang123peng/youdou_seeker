@@ -128,11 +128,11 @@ export default {
       i
         position absolute
         right -0.1rem
-        top -0.1rem
+        top -0.08rem
         text-align center
         line-height 0.2rem
-        color #000
-        font-size 0.05rem
+        color #333
+        font-size 0.14rem
         width 0.2rem
         height 0.2rem
   .group

@@ -2,11 +2,13 @@
   <div class="job-detail">
     <div class="header" :style="jobInfo.companyImages&&jobInfo.companyImages[0] ? 'background-image:url('+jobInfo.companyImages[0].file_path+')':''">
       <div class="goback-button" @click.stop="goback">
-        <span>&lt;</span>
+        <i class="iconfont icon-xiangzuo"></i>
       </div>
-      <div class="right-button">
+      <div class="right-button" @click="addToCollection">
         <div class="collect-button fl">
-          <i class="iconfont icon-heart"></i>
+          <i class="iconfont icon-heart" v-show="jobInfo.is_collection == 0"></i>
+          <i class="iconfont icon-heart1" v-show="jobInfo.is_collection == 1"></i>
+          
         </div>
         <div class="share-button fl">
           <i class="iconfont icon-share"></i>
@@ -61,7 +63,7 @@
         <div class="item-content clearfix">
           <div class="info-single-item">
             <div class="info-single-label">工作地点：</div>
-            <div class="info-single-value">{{jobInfo.workAddress}}}</div>
+            <div class="info-single-value">{{jobInfo.workAddress}}</div>
             <i class="iconfont icon-position"></i>
           </div>
           <!-- <div class="info-single-item">
@@ -209,6 +211,39 @@ export default {
             // res.data.data.chatTheme.theme_status
           }
         })
+    },
+    addToCollection(){
+      if(this.jobInfo.is_collection == 0){
+        this.$api.me.createCollection({
+          markId:this.job_id,
+          role:2
+        })
+          .then(res => {
+            if(res.data.error == 0){
+              this.getInfo()
+              this.$Toast({
+                message: '收藏成功',
+                position: 'bottom',
+                duration: 3000
+              })
+            }
+          })
+          
+      } else {
+        this.$api.me.cancelCollection({
+          collectionId:this.jobInfo.collectionInfo.collection_id,
+        })
+          .then(res => {
+            this.getInfo()
+            if(res.data.error == 0){
+              this.$Toast({
+                message: '已取消收藏',
+                position: 'bottom',
+                duration: 3000
+              })
+            }
+          })
+      }
     }
   },
   activated(){
@@ -226,6 +261,7 @@ export default {
     height 1.7rem
     width 100%
     background-color #ccc
+    background-repeat no-repeat
     background-size cover
     background-position center
     .goback-button
@@ -235,6 +271,10 @@ export default {
       padding 0.1rem 0.15rem
       span
         font-size 0.18rem
+        color #fff
+      i
+        font-size 0.16rem
+        line-height 0.2rem
         color #fff
     .right-button
       position absolute
@@ -282,8 +322,9 @@ export default {
           left 0
           width 0.6rem
           height 0.6rem
-          background-color #ccc
-          background-size cover
+          background-color #fff
+          background-repeat no-repeat
+          background-size contain
           background-position center
         .company-name
           line-height 0.3rem
@@ -349,7 +390,7 @@ export default {
             padding-left 0.15rem
           .info-single-value
             padding-left 0.9rem
-            padding-right 0.15rem
+            padding-right 0.3rem
           i
             position absolute
             right 0.15rem

@@ -2,11 +2,12 @@
   <div class="company-detail">
     <div class="header" :style="companyInfo.businfo_img&&companyInfo.businfo_img[0] ? 'background-image:url('+companyInfo.businfo_img[0].file_path+')':''">
       <div class="goback-button" @click.stop="goback">
-        <span>&lt;</span>
+        <i class="iconfont icon-xiangzuo"></i>
       </div>
-      <div class="right-button">
+      <div class="right-button" @click="addToCollection">
         <div class="collect-button fl">
-          <i class="iconfont icon-heart"></i>
+          <i class="iconfont icon-heart" v-show="companyInfo.is_collection == 0 || (companyInfo.is_collection == 1 && companyInfo.collectionInfo.collection_status == 0)"></i>
+          <i class="iconfont icon-heart1" v-show="companyInfo.is_collection == 1 && companyInfo.collectionInfo.collection_status == 1"></i>
         </div>
         <div class="share-button fl">
           <i class="iconfont icon-share"></i>
@@ -59,7 +60,7 @@
         <div class="item-content">
           <div class="hot-job-content">
             <ul>
-              <li v-for="(item,index) in companyInfo.hotJobs" :key="index">
+              <router-link tag="li" :to="'/job/job_detail/'+ item.job_id" v-for="(item,index) in companyInfo.hotJobs" :key="index">
                 <div class="job-avatar" :style="'background-image:url('+companyInfo.logo_url+')'"></div>
                 <div class="job-info">
                   <div class="job-name">{{item.job_name}}</div>
@@ -81,9 +82,9 @@
                   </div>
                 </div>
                 <div class="tags">
-                  <span class="tag-item" v-for="(tag,index) in companyInfo.businfo_welfare" :key="index">{{tag}}</span>
+                  <span class="tag-item" v-for="(tag,index) in companyInfo.businfo_welfare.slice(0,4)" :key="index">{{tag}}</span>
                 </div>
-              </li>
+              </router-link>
             </ul>
           </div>
         </div>
@@ -125,6 +126,39 @@ export default {
           this.$Indicator.close();
           console.log(err)
         })
+    },
+    addToCollection(){
+      if(this.companyInfo.is_collection == 0 || this.companyInfo.collectionInfo.collection_status == 0){
+        this.$api.me.createCollection({
+          markId:this.businessId,
+          role:1
+        })
+          .then(res => {
+            if(res.data.error == 0){
+              this.getInfo()
+              this.$Toast({
+                message: '收藏成功',
+                position: 'bottom',
+                duration: 3000
+              })
+            }
+          })
+          
+      } else {
+        this.$api.me.cancelCollection({
+          collectionId:this.companyInfo.collectionInfo.collection_id,
+        })
+          .then(res => {
+            this.getInfo()
+            if(res.data.error == 0){
+              this.$Toast({
+                message: '已取消收藏',
+                position: 'bottom',
+                duration: 3000
+              })
+            }
+          })
+      }
     }
   },
   activated(){
@@ -142,6 +176,7 @@ export default {
     height 1.7rem
     width 100%
     background-color #ccc
+    background-repeat no-repeat
     background-size cover
     background-position center
     .goback-button
@@ -151,6 +186,10 @@ export default {
       padding 0.1rem 0.15rem
       span
         font-size 0.18rem
+        color #fff
+      i
+        font-size 0.16rem
+        line-height 0.2rem
         color #fff
     .right-button
       position absolute
@@ -177,8 +216,9 @@ export default {
           left 0
           width 0.6rem
           height 0.6rem
-          background-color #ccc
-          background-size cover
+          background-color #fff
+          background-repeat no-repeat
+          background-size contain
           background-position center
         .company-name
           line-height 0.3rem
@@ -249,8 +289,9 @@ export default {
                 top 0.1rem
                 width 0.6rem
                 height 0.6rem
-                background-size cover
-                background-color #ccc
+                background-color #fff
+                background-repeat no-repeat
+                background-size contain
                 background-position center
               .job-info
                 padding 0 0.7rem

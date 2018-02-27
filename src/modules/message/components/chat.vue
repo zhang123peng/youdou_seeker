@@ -320,6 +320,7 @@ export default {
             position absolute
             top 0
             line-height 0.2rem
+            font-size 0.12rem
             color #fff
             border-radius 2px
             padding 0 0.05rem

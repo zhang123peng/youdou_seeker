@@ -1,7 +1,7 @@
 <template>
   <div class="goback-nav">
     <div class="goback-button" @click.stop="goback">
-      <span>&lt;</span>
+      <i class="iconfont icon-xiangzuo"></i>
     </div>
     <div class="title">
       <slot></slot>
@@ -44,8 +44,9 @@ export default {
     top 0
     left 0
     padding 0.1rem 0.15rem
-    span
-      font-size 0.18rem
+    i
+      font-size 0.16rem
+      line-height 0.2rem
       color #fff
   .title
     font-size 0.16rem

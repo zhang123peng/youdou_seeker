@@ -10,12 +10,52 @@
 
 <script>
 import {mapState} from 'vuex'
+import {SET_TOUCH_BACK_STATUS} from '@/vuex/mutations_types'
 export default {
   name: 'App',
   computed:{
     ...mapState({
       transitionName: state => state.transition.routeTransitionName
     })
+  },
+  methods:{
+    // init(){
+    //   preventTouchBack()
+    //   let _this = this
+    //   function preventTouchBack(){
+    //     let startX = 0
+    //     let distance = 0
+    //     document.querySelector('body').addEventListener('touchstart', event => {
+    //       startX = event.touches[0].screenX
+    //     })
+    //     document.querySelector('body').addEventListener('touchmove', event => {
+    //       distance = event.touches[0].screenX - startX
+    //     })
+    //     document.querySelector('body').addEventListener('touchend', event => {
+    //       console.log(distance,'distance')
+    //       if(distance > 100){
+    //         _this.$store.commit(SET_TOUCH_BACK_STATUS,true)
+    //         _this.$Toast({
+    //           message: true,
+    //           position: 'bottom',
+    //           duration: 3000
+    //         })
+
+    //         setTimeout(()=>{
+    //           _this.$store.commit(SET_TOUCH_BACK_STATUS,false)
+    //           _this.$Toast({
+    //             message: false,
+    //             position: 'bottom',
+    //             duration: 3000
+    //           })
+    //         },300)
+    //       }
+    //       startX = distance = 0
+    //     })
+    //   }
+    // }
+  },
+  mounted(){
   }
 }
 </script>

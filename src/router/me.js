@@ -6,6 +6,7 @@ import updateUserinfo from '@/modules/me/components/update_userinfo'
 import workExp from '@/modules/me/components/work_exp'
 import eduExp from '@/modules/me/components/edu_exp'
 import bindEmail from '@/modules/me/components/bind_email'
+import collection from '@/modules/me/components/collection'
 
 export default [{
   path: '/me',
@@ -39,4 +40,8 @@ export default [{
   path: '/me/bind_email',
   name:'bindEmail',
   component: bindEmail
+},{
+  path: '/me/collection',
+  name:'collection',
+  component: collection
 }]

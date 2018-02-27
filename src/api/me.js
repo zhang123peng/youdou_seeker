@@ -55,3 +55,25 @@ export const updateAvatar = (formData,onUploadProgress) => axios({
  * @param {*邮箱地址} email 
  */
 export const bindEmail = email => axios.post(API_ROOT + 'appuser/update_email',email)
+
+/**
+ * 获取收藏职位
+ */
+export const getCollectedJobs = () => axios.get(API_ROOT + 'collection/jobs')
+
+/**
+ * 获取收藏公司
+ */
+export const getCollectedCompanys = () => axios.get(API_ROOT + 'collection/companys')
+
+/**
+ * 添加收藏
+ * @param {*收藏信息} info 
+ */
+export const createCollection = info => axios.post(API_ROOT + 'collection/create', info)
+
+/**
+ * 取消收藏
+ * @param {*收藏id} info 
+ */
+export const cancelCollection = info => axios.post(API_ROOT + 'collection/delete', info)

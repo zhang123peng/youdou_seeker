@@ -26,22 +26,22 @@
     <div class="line"></div>
     <div class="manage">
       <ul class="cells">
-        <li class="cell">
+        <router-link tag="li" to="/me/collection" class="cell">
           <div class="cell-label">
             <span>收藏管理</span>
           </div>
           <div class="cell-ft">
             <i class="iconfont icon-xiangyou"></i>
           </div>
-        </li>
-        <li class="cell">
+        </router-link>
+        <router-link tag="li" to="/message/work_manage" class="cell">
           <div class="cell-label">
             <span>工作管理</span>
           </div>
           <div class="cell-ft">
             <i class="iconfont icon-xiangyou"></i>
           </div>
-        </li>
+        </router-link>
       </ul>
     </div>
     <div class="line"></div>

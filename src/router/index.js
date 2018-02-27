@@ -11,7 +11,7 @@ import me from './me'
 import store from '@/vuex/store'
 import {SET_ROUTE_TRANSITION_NAME,ADD_ROUTE_CHAIN,POP_ROUTE_CHAIN, SET_USER_INFO} from '@/vuex/mutations_types'
 import {GET_GLOBAL_USER_INFO} from '@/vuex/actions_types'
-
+import { Toast,Indicator } from 'mint-ui';
 Vue.use(Router)
 
 
@@ -32,6 +32,10 @@ const router = new Router({
     ...me
   ]
 })
+
+
+
+
 
 /**
  * 注册路由钩子设置切换动画
@@ -65,10 +69,15 @@ router.beforeEach((to, from, next) => {
     if(tabs.indexOf(to.name) != -1 && tabs.indexOf(from.name) != -1){
       store.commit(ADD_ROUTE_CHAIN, to);
       store.commit(SET_ROUTE_TRANSITION_NAME, '');
-      console.log(123)
     } else if (lastBeforeRoute.path === to.path) {
+      //返回状态
       store.commit(POP_ROUTE_CHAIN);
-      store.commit(SET_ROUTE_TRANSITION_NAME, 'slide-right');
+      if(store.state.transition.isTouchBack){
+        store.commit(SET_ROUTE_TRANSITION_NAME, '');
+      } else {
+        store.commit(SET_ROUTE_TRANSITION_NAME, 'slide-right');
+      }
+      
     } else {
       store.commit(ADD_ROUTE_CHAIN, to);
       store.commit(SET_ROUTE_TRANSITION_NAME, 'slide-left');

@@ -16,7 +16,7 @@
         <mt-button class="form-button"  @click="$router.push('/job')" type="primary" size="large">查看职位</mt-button>
       </div>
     </div>
-    <div class="subject"></div>
+    <!-- <div class="subject"></div> -->
     <div class="job-list">
       <div class="empty" v-show="!jobList.length">没有搜索相关职位</div>
       <ul>
@@ -41,7 +41,7 @@
             </div>
           </div>
           <div class="tags">
-            <span class="tag-item" v-for="(tag,index) in item.job_welfare" :key="index">{{tag}}</span>
+            <span class="tag-item" v-for="(tag,index) in item.job_welfare.slice(0,4)" :key="index">{{tag}}</span>
           </div>
         </router-link>
       </ul>
@@ -83,7 +83,8 @@ export default {
   methods:{
     getJobList(){
       this.$Indicator.open()
-      this.$store.dispatch(GET_JOB_LIST,{...this.position,areaType:1,areaCode:this.city.value,search:this.searchValue})
+      this.$store.dispatch(GET_JOB_LIST,{...this.position,areaType:1,areaCode:[this.city.value],search:this.searchValue})
+      // this.$store.dispatch(GET_JOB_LIST,{...{longitude:+'113.3228100',latitude:+'22.9690000'},areaType:1,areaCode:[this.city.value],search:this.searchValue})
         .then(res => {
           this.$Indicator.close()
         })
@@ -98,8 +99,8 @@ export default {
       if (navigator.geolocation && this.loginState){
         this.$Indicator.open()
         navigator.geolocation.getCurrentPosition(position => {
-          this.position.longitude = position.coords.longitude;  
-          this.position.latitude = position.coords.latitude;  
+          this.position.longitude = +position.coords.longitude;  
+          this.position.latitude = +position.coords.latitude;  
           this.$api.option.getCurrentCity(this.position)
             .then(res => {
               this.$Indicator.close()
@@ -109,7 +110,7 @@ export default {
                 this.getJobList()
               } else {
                 this.city = {name:'北京市',value:'131'}
-                this.position.longitude = ''  
+                this.position.longitude = '' 
                 this.position.latitude = ''
                 this.$store.commit(SET_FORM_CITY,this.city)
                 this.getJobList()
@@ -229,8 +230,9 @@ export default {
           top 0.1rem
           width 0.6rem
           height 0.6rem
-          background-size cover
-          background-color #ccc
+          background-size contain
+          background-repeat no-repeat
+          background-color #fff
           background-position center
         .job-info
           padding 0 0.7rem

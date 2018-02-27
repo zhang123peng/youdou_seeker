@@ -157,6 +157,8 @@ export default {
         .not-read
           display inline-block
           line-height 0.18rem
+          height 0.18rem
+          font-size 0.12rem
           padding 0 0.05rem
           border-radius 2px
           color #fff
