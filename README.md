@@ -1,6 +1,6 @@
 # youdou_seeker
 
-> A Vue.js project
+> 有豆招聘移动web求职者端
 
 ## Build Setup
 
